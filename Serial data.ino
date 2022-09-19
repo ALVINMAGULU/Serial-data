@@ -1,12 +1,12 @@
-#include <ArduinoJson.h>
+
 #include "SerialData.h"
 
 String Buffer;
 SerialData weather("0", Serial);
 SerialData lights("1", Serial);
-SerialData Time("1", Serial);
-//SerialData config("3", Serial);
-//SerialData sensor("4", Serial);
+SerialData Time("2", Serial);
+SerialData config("3", Serial);
+SerialData sensor("4", Serial);
 
 bool serialCheck;
 
@@ -17,7 +17,7 @@ void setup() {
   weather.addData("Humidity", 70);
  lights.addData("indoor", false);
   lights.addData("outdoor", true);
-  //weather.updateArray("Temperature", "23");
+  
 }
 
 void loop() {
@@ -34,6 +34,8 @@ void loop() {
   }
   weather.run(Buffer);
   lights.run(Buffer);
+  Time.run(Buffer);
+  config.run(Buffer);  
 Serial.print("Connection status:");
 Serial.println(weather.serialConnected());
   delay(3000);
